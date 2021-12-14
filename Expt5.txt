@@ -1,0 +1,165 @@
+mysql> UPDATE student SET name='john' WHERE id=44553;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++-------+----------+------------+----------+------------+
+| id    | name     | dept_name  | tot_cred | dob        |
++-------+----------+------------+----------+------------+
+|   128 | zhang    | comp. sci. |      102 | 2000-07-24 |
+| 12345 | shankar  | comp. sci. |       42 | 2001-01-01 |
+| 19991 | brandt   | history    |       80 | 2002-06-10 |
+| 23121 | chavez   | finance    |      110 | 2003-05-25 |
+| 44553 | john     | physics    |       56 | 2004-04-30 |
+| 45678 | mozart   | physics    |       56 | 1999-08-27 |
+| 54321 | williams | comp. sci. |       54 | 2006-10-01 |
+| 55739 | sanchez  | music      |       48 | 1995-02-07 |
+| 76543 | brown    | comp. sci. |       58 | 2009-03-09 |
+| 76653 | aoi      | elec. eng. |       60 | 2010-05-10 |
+| 98765 | bourikas | elec. eng. |       98 | 2011-06-07 |
+| 98988 | tanaka   | biology    |      120 | 2012-04-08 |
++-------+----------+------------+----------+------------+
+12 rows in set (0.00 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.72 sec)
+
+mysql> UPDATE student SET name='peltier' WHERE id=44553;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++-------+----------+------------+----------+------------+
+| id    | name     | dept_name  | tot_cred | dob        |
++-------+----------+------------+----------+------------+
+|   128 | zhang    | comp. sci. |      102 | 2000-07-24 |
+| 12345 | shankar  | comp. sci. |       42 | 2001-01-01 |
+| 19991 | brandt   | history    |       80 | 2002-06-10 |
+| 23121 | chavez   | finance    |      110 | 2003-05-25 |
+| 44553 | peltier  | physics    |       56 | 2004-04-30 |
+| 45678 | mozart   | physics    |       56 | 1999-08-27 |
+| 54321 | williams | comp. sci. |       54 | 2006-10-01 |
+| 55739 | sanchez  | music      |       48 | 1995-02-07 |
+| 76543 | brown    | comp. sci. |       58 | 2009-03-09 |
+| 76653 | aoi      | elec. eng. |       60 | 2010-05-10 |
+| 98765 | bourikas | elec. eng. |       98 | 2011-06-07 |
+| 98988 | tanaka   | biology    |      120 | 2012-04-08 |
++-------+----------+------------+----------+------------+
+12 rows in set (0.00 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> select * from student;
++-------+----------+------------+----------+------------+
+| id    | name     | dept_name  | tot_cred | dob        |
++-------+----------+------------+----------+------------+
+|   128 | zhang    | comp. sci. |      102 | 2000-07-24 |
+| 12345 | shankar  | comp. sci. |       42 | 2001-01-01 |
+| 19991 | brandt   | history    |       80 | 2002-06-10 |
+| 23121 | chavez   | finance    |      110 | 2003-05-25 |
+| 44553 | john     | physics    |       56 | 2004-04-30 |
+| 45678 | mozart   | physics    |       56 | 1999-08-27 |
+| 54321 | williams | comp. sci. |       54 | 2006-10-01 |
+| 55739 | sanchez  | music      |       48 | 1995-02-07 |
+| 76543 | brown    | comp. sci. |       58 | 2009-03-09 |
+| 76653 | aoi      | elec. eng. |       60 | 2010-05-10 |
+| 98765 | bourikas | elec. eng. |       98 | 2011-06-07 |
+| 98988 | tanaka   | biology    |      120 | 2012-04-08 |
++-------+----------+------------+----------+------------+
+12 rows in set (0.00 sec)
+
+mysql> SAVEPOINT sp1;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into student values(98989, 'rio', 'biology', 122, date '2013-04-08');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> UPDATE student set name='rio nyx' where id=98989;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE student set tot_cred=130 where id=98989;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SAVEPOINT sp2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> UPDATE student set tot_cred=136 where id=98989;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * froms students;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'froms students' at line 1
+mysql> select * froms student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'froms student' at line 1
+mysql> select * from student;
++-------+----------+------------+----------+------------+
+| id    | name     | dept_name  | tot_cred | dob        |
++-------+----------+------------+----------+------------+
+|   128 | zhang    | comp. sci. |      102 | 2000-07-24 |
+| 12345 | shankar  | comp. sci. |       42 | 2001-01-01 |
+| 19991 | brandt   | history    |       80 | 2002-06-10 |
+| 23121 | chavez   | finance    |      110 | 2003-05-25 |
+| 44553 | john     | physics    |       56 | 2004-04-30 |
+| 45678 | mozart   | physics    |       56 | 1999-08-27 |
+| 54321 | williams | comp. sci. |       54 | 2006-10-01 |
+| 55739 | sanchez  | music      |       48 | 1995-02-07 |
+| 76543 | brown    | comp. sci. |       58 | 2009-03-09 |
+| 76653 | aoi      | elec. eng. |       60 | 2010-05-10 |
+| 98765 | bourikas | elec. eng. |       98 | 2011-06-07 |
+| 98988 | tanaka   | biology    |      120 | 2012-04-08 |
+| 98989 | rio nyx  | biology    |      136 | 2013-04-08 |
++-------+----------+------------+----------+------------+
+13 rows in set (0.00 sec)
+
+mysql> ROLLBACK SAVEPOINT TO sp2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SAVEPOINT TO sp2' at line 1
+mysql> ROLLBACK TO SAVEPOINT sp2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++-------+----------+------------+----------+------------+
+| id    | name     | dept_name  | tot_cred | dob        |
++-------+----------+------------+----------+------------+
+|   128 | zhang    | comp. sci. |      102 | 2000-07-24 |
+| 12345 | shankar  | comp. sci. |       42 | 2001-01-01 |
+| 19991 | brandt   | history    |       80 | 2002-06-10 |
+| 23121 | chavez   | finance    |      110 | 2003-05-25 |
+| 44553 | john     | physics    |       56 | 2004-04-30 |
+| 45678 | mozart   | physics    |       56 | 1999-08-27 |
+| 54321 | williams | comp. sci. |       54 | 2006-10-01 |
+| 55739 | sanchez  | music      |       48 | 1995-02-07 |
+| 76543 | brown    | comp. sci. |       58 | 2009-03-09 |
+| 76653 | aoi      | elec. eng. |       60 | 2010-05-10 |
+| 98765 | bourikas | elec. eng. |       98 | 2011-06-07 |
+| 98988 | tanaka   | biology    |      120 | 2012-04-08 |
+| 98989 | rio nyx  | biology    |      130 | 2013-04-08 |
++-------+----------+------------+----------+------------+
+13 rows in set (3.53 sec)
+
+mysql> ROLLBACK TO SAVEPOINT sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++-------+----------+------------+----------+------------+
+| id    | name     | dept_name  | tot_cred | dob        |
++-------+----------+------------+----------+------------+
+|   128 | zhang    | comp. sci. |      102 | 2000-07-24 |
+| 12345 | shankar  | comp. sci. |       42 | 2001-01-01 |
+| 19991 | brandt   | history    |       80 | 2002-06-10 |
+| 23121 | chavez   | finance    |      110 | 2003-05-25 |
+| 44553 | john     | physics    |       56 | 2004-04-30 |
+| 45678 | mozart   | physics    |       56 | 1999-08-27 |
+| 54321 | williams | comp. sci. |       54 | 2006-10-01 |
+| 55739 | sanchez  | music      |       48 | 1995-02-07 |
+| 76543 | brown    | comp. sci. |       58 | 2009-03-09 |
+| 76653 | aoi      | elec. eng. |       60 | 2010-05-10 |
+| 98765 | bourikas | elec. eng. |       98 | 2011-06-07 |
+| 98988 | tanaka   | biology    |      120 | 2012-04-08 |
++-------+----------+------------+----------+------------+
+12 rows in set (0.00 sec)
+
+mysql> 
+
